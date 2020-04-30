@@ -1,0 +1,88 @@
+*{
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+    color:black;
+}
+
+
+.timer{
+    
+    height: 30vh;
+    border:2px solid blue;
+}
+
+
+/**********************************/
+/*Container*/
+/**********************************/
+
+
+.container{
+    height:70vh;
+    border: 2px solid black;
+    display: grid;
+    grid-template-columns: 33.3% 33.3% 33.3%;
+}
+
+.heading{
+    text-transform: capitalize;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;    
+    padding:20px;
+    border-bottom: 1px solid black;
+}
+
+
+
+
+
+/**********************************/
+/*Container_one*/
+/**********************************/
+
+
+.container_one{
+    height: 100%;
+    border:1px solid black;
+}
+
+.container_one .list{
+    display: flex;
+    justify-content: space-around;
+}
+
+/**********************************/
+/*Container_two*/
+/**********************************/
+
+.container_two{
+    height: 100%;
+    border:1px solid black;
+}
+
+/**********************************/
+/*Container_three*/
+/**********************************/
+
+
+
+.container_three{
+    height: 100%;
+    border:1px solid black;
+}
+
+
+/**********************************/
+/*JS_LIST*/
+/**********************************/
+
+.time-container{
+        display: flex;
+      justify-content: center;
+    align-items: center;
+     font-size: 5rem;
+   height: 100%;
+}

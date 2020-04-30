@@ -1,0 +1,18 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    
+}
+
+#img{
+    height: 30vh;
+    width: 20vw;
+  
+}
+
+.swap-rate{
+    margin-bottom: 10px;
+    margin-top: 10px;
+}

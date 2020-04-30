@@ -1,0 +1,18 @@
+.error input{
+	border: 1.5px solid red;			
+}
+			
+
+
+.error small{
+ 	visibility: visible;
+
+}
+
+.success input{
+	border: 1.5px solid green;
+}
+
+small{
+	visibility: hidden;
+}

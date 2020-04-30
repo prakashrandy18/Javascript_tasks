@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Weight converter</title>
+	<link rel="stylesheet"href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<style type="text/css">
+		body{
+			margin-top: 70px;
+		}
+
+		.card{
+			height:50px;
+		}
+
+		.card-block{
+			width:50%;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="col-sm-6 offset-md-3">	
+			<form>
+				<div class="form-group">
+					<h2 class="text-center mb-4"> Weight Converter</h2>
+					<input type="number" placeholder="Enter kg" class="form-control" id="input">
+				</div>
+
+				<div id="output">
+
+					<div class="card bg-primary mb-4">
+						<div class="card-block">
+							<h6 class="text-white">Grams:</h6>
+							<div id ="convertToGrams">
+								
+							</div>
+						</div>
+					</div>
+
+					<div class="card bg-success mb-4">
+						<div class="card-block">
+							<h6 class="text-white">Pounds:</h6>
+							<div id ="convertToPounds">
+								
+							</div>
+						</div>
+					</div>
+				
+
+					<div class="card bg-danger mb-2">
+						<div class="card-block">
+							<h6 class="text-white">Ounces:</h6>
+							<div id ="convertToOunces">
+								
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</form>
+		</div>
+	</div>
+
+<script src="app.js"></script>
+<script>
+	var input = document.getElementById('input'),
+	grams = document.getElementById('convertToGrams'),
+	pounds =  document.getElementById('convertToPounds'),
+	ounces = document.getElementById('convertToOunces');
+
+	document.getElementById('output').style.visibility = 'hidden';
+
+	input.addEventListener('input', function(){
+	if(input.value != '' || input.value != 0){
+		var inputVal = input.value;
+		document.getElementById('output').style.visibility ='visible';
+		grams.innerHTML = inputVal*1000;
+		
+
+		pounds.innerHTML =inputVal*2.20462;
+
+		ounces.innerHTML = inputVal*35.274;
+	}
+	else{
+		document.getElementById('output').style.visibility ='hidden';
+	}
+
+	});
+</script>
+</body>
+</html>
