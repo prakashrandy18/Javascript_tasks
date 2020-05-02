@@ -2,7 +2,7 @@ var timer = document.getElementById('time');
 
 
 const start = document.getElementById('start');
-
+const stop = document.getElementById('stop');
 
 
 
@@ -55,53 +55,62 @@ function getTime(){
 
 }
 
+let div = document.createElement('div');
+
 function getStartTime(){
+    let div = document.createElement('div');
+   
     
     var time_of_start = getTime();      
     var time_of_start = time_of_start;
-    valStart.innerHTML =`${time_of_start.time}`;
+    div.innerHTML =`${time_of_start.time}`;
+    
+     valStart.appendChild(div);
     
     //getting starttime in milliseconds    
     var time_of_start_ms = time_of_start.time_in_millisecond;
     console.log(`${time_of_start.time_in_millisecond}`);  
     
-    start_time_in_ms = time_of_start_ms;
+    start_time_in_ms += time_of_start_ms;
     
-    start.innerHTML = 'STOP';
-    start.removeAttribute('id');
-    start.setAttribute('id','stop');
-    
-     stop = document.getElementById('stop');
+ 
    
-   
-      stop.addEventListener('click', getStopTime,true);
-    
     
        
 }
+  
 
 
 
-//
-//function getStopTime(){    
-//     
-//    var time_of_stop = getTime();
-//     var time_of_stop = time_of_stop;
-//     valStop.innerHTML = `${time_of_stop.time}`;
-//    
-//    //getting stoptime in milliseconds
-//    var time_of_stop_ms = time_of_stop.time_in_millisecond;
-//    console.log(`${time_of_stop.time_in_millisecond}`); 
-//    
-//    stop_time_in_ms =  time_of_stop_ms;
-//         
-//    var diff = (stop_time_in_ms - start_time_in_ms);
-//    var diffFormat =  convertMS(diff);
-//    spent.innerHTML = diffFormat;
-//    
-//    stop.innerHTML = 'START';
-//    stop.setAttribute('id','start');
-//}
+
+function getStopTime(){    
+     
+      let div = document.createElement('div'); 
+    
+     var time_of_stop = getTime();
+     var time_of_stop = time_of_stop;
+     div.innerHTML = `${time_of_stop.time}`;
+    
+    valStop.appendChild(div);
+    
+    let div2 =  document.createElement('div'); 
+    //getting stoptime in milliseconds
+    var time_of_stop_ms = time_of_stop.time_in_millisecond;
+    console.log(`${time_of_stop.time_in_millisecond}`); 
+    
+    stop_time_in_ms =  time_of_stop_ms;
+         
+    var diff = (stop_time_in_ms - start_time_in_ms);
+    console.log(diff);
+    var diffFormat =  convertMS(diff);
+    div2.innerHTML = diffFormat;
+    console.log(diffFormat);
+
+    spent.appendChild(div2);
+    
+  start_time_in_ms = 0;
+  stop_time_in_ms = 0;
+}
 
 function convertMS(ms) {
     var d, h, m, s;
@@ -128,6 +137,10 @@ function convertMS(ms) {
 start.addEventListener('click',getStartTime);
 
 
+   
+   
+      stop.addEventListener('click', getStopTime,true);
+    
 
 
 //Task manager

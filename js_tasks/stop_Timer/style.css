@@ -22,7 +22,7 @@
     height:70vh;
     border: 2px solid black;
     display: grid;
-    grid-template-columns: 33.3% 33.3% 33.3%;
+    grid-template-columns: 50% 25% 25%;
 }
 
 .heading{
@@ -35,6 +35,18 @@
     border-bottom: 1px solid black;
 }
 
+
+.list .values{
+    display:flex;
+    flex-direction: column;
+    
+}
+
+.list .values div{
+    display: flex;
+    align-content: stretch;
+    padding:10px;
+}
 
 
 
