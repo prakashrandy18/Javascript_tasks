@@ -17,6 +17,7 @@ const cart_container = document.getElementById('cart-container')
 const  cart_item = document.getElementById('cart-item-container');
 
 
+
 const item_count_up = document.getElementById('item-count-up');
 const item_count_down = document.getElementById('item-count-down');
 
@@ -181,13 +182,13 @@ class displayUI{
                             <div class="cart-item-detail">
                                 <h6>${carts.title}</h6>
                                 <span>$${carts.price}</span>
-                                <a href='#'>remove</a>
+                                <a href='#' class="remove-item" data-id="${carts.id}">remove</a>
                             </div>
 
                             <div class="cart-item-count">
-                                <i class="fa fa-chevron-up" id="item-count-up"></i>
+                                <i class="fa fa-chevron-up" id="item-count-up" data-id="${carts.id}"></i>
                                 <span class="item-count" >${carts.amount}</span>
-                                <i class="fa fa-chevron-down" id="item-count-down"></i>
+                                <i class="fa fa-chevron-down" id="item-count-down" data-id="${carts.id}"></i>
                             </div>`;
 
                 cart_item.appendChild(div);
@@ -221,16 +222,65 @@ cartLogic(){
     
     //cart functionality
     
+    cart_item.addEventListener('click', event =>{
+        
+   let target = event.target;
+      
+        
+        if(event.target.classList.contains('remove-item')){
+           let removeItem = event.target;
+            
+           let id = removeItem.dataset.id;
+            cart_item.removeChild(removeItem.parentElement.parentElement);
+            
+            ui.removeItems(id);
+        }
+        else if(event.target.classList.contains('fa-chevron-up'))
+        {
+            
+            let addAmount = event.target;
+            let id = addAmount.dataset.id;
+            
+            let tempItem = carts.find(item => item.id === id);
+            
+            tempItem.amount = tempItem.amount + 1;
+            console.log(tempItem.amount);
+            Storage.saveCartProducts(carts);
+            ui.setCartValues(carts);
+            
+            addAmount.nextElementSibling.innerText = tempItem.amount;
+        }
+         else if(event.target.classList.contains('fa-chevron-down')){
+             let lowerAmount = event.target;
+             let id = lowerAmount.dataset.id;
+             
+             let tempItem = carts.find(item => item.id === id);
+             
+             tempItem.amount = tempItem.amount -1 ;
+             
+             if(tempItem.amount > 0){
+                 Storage.saveCartProducts(carts);
+                 ui.setCartValues(carts);
+                 lowerAmount.previousElementSibling.innerText = tempItem.amount;
+                
+                }else{
+                    cart_item.removeChild(lowerAmount.parentElement.parentElement);
+                    ui.removeItems(id);
+                }
+         }
+        
+    });
+    
 }
-removeItems(ids){ 
+removeItems(id){ 
     
     
-    carts = carts.filter(item => item.id !== ids);
+    carts = carts.filter(item => item.id !== id);
     this.setCartValues(carts);
     Storage.saveCartProducts(carts);
-    let btn = this.getSingleButton(ids);
+    let btn = this.getSingleButton(id);
     btn.disabled = false;
-    btn.innerHTML = `<i class="fa fa-shopping-cart></i>add to cart`;
+    btn.innerHTML = `<i class="fa fa-shopping-cart"></i>add to cart`;
 }    
 clearCart(){
     
@@ -241,9 +291,9 @@ clearCart(){
    
     cartItems.forEach(item => ui.removeItems(item));
     
-    
-     while(cart_container.children.length > 0) {
-         cart_container.removeChild(cart_container.children[0]);
+
+     while(cart_item.childElementCount> 0) {
+         cart_item.removeChild(cart_item.children[0]);
     }
 }    
 
