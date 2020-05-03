@@ -1,15 +1,15 @@
 var timer = document.getElementById('time');
 
 
-const start = document.getElementById('start');
-const stop = document.getElementById('stop');
-
+const start = document.querySelectorAll('#start');
+const stop = document.querySelectorAll('#stop');
 
 
 //list elements
-const valStart = document.getElementById('valStart');
-const valStop = document.getElementById('valStop');
-const spent = document.getElementById('spent');
+let valStart = document.querySelectorAll('#valStart');
+let valStop = document.querySelectorAll('#valStop');
+let spent = document.querySelectorAll('#spent');
+
 
 
 //start time  and stop time
@@ -20,131 +20,208 @@ var stop_time_in_ms = 0;
 var el = document.createElement('div');
 el.classList.add('time-container');
 
-function showTime(){
-    setTimeout(()=>{                      
-       var t =  getTime();
-        el.innerHTML = `${t.time}`;
-        timer.appendChild(el);
-    },0);
-}
-
-setInterval(showTime,1000);
 
 
-function getTime(){
-     var hour = new Date().getHours();
-        var h = hour < 10 ? '0'+hour : hour;
-      
 
-         var minute = new Date().getMinutes();
-         var m =minute < 10 ? '0'+ minute : minute;
-
-         var seconds = new Date().getSeconds();
-         var s =seconds < 10 ? '0'+ seconds : seconds; 
+/*******************************************************/
+//Time class
+/*******************************************************/
+class Time{
     
-         var t = `${h}: ${m}: ${s}`;
-        var t_in_ms = new Date().getTime();
+        getTime(){
+            let  hour = new Date().getHours();
+            let h = hour < 10 ? '0'+hour : hour;
+
+            let minute = new Date().getMinutes();
+            let m =minute < 10 ? '0'+ minute : minute;
+
+            let seconds = new Date().getSeconds();
+            let s =seconds < 10 ? '0'+ seconds : seconds; 
+
+             let t = `${h}: ${m}: ${s}`;
+             let t_in_ms = new Date().getTime();
+
+
+            return {
+                time: t,
+                time_in_millisecond :t_in_ms
+            };
+
+
+        }
+    
+    
+        getStartTime(n){
+             
+    
+    
+                let time_of_start = time.getTime();      
+                ui.showStartTime(time_of_start, n);
+
+                //getting starttime in milliseconds    
+                var time_of_start_ms = time_of_start.time_in_millisecond;
+                
+               //adding to global variable
+                start_time_in_ms += time_of_start_ms;             
+        }
+    
+    
+        getStopTime(n){
+             
+    
+    
+                 let time_of_stop = time.getTime();
+                 ui.showStopTime(time_of_stop, n);
+
+
+                
+                //getting stoptime in milliseconds
+                var time_of_stop_ms = time_of_stop.time_in_millisecond;
         
-      
-        return {
-            time: t,
-            time_in_millisecond :t_in_ms
-        };
+                //adding stop ms in global variable
+                stop_time_in_ms =  time_of_stop_ms;
 
+                //getting diff time
+                var diff = (stop_time_in_ms - start_time_in_ms);
+               
+                //converting diff time to time format
+                var diffFormat =  time.convertMs(diff);
+                ui.showDiffTime(diffFormat, n);
 
+                //setting global var to empty
+                start_time_in_ms = 0;
+                stop_time_in_ms = 0;
+        }
+    
+    
+        convertMs(ms){
+             
+                let d, h, m, s;
+                s = Math.floor(ms / 1000);
+                m = Math.floor(s / 60);
+                s = s % 60;
+                h = Math.floor(m / 60);
+                m = m % 60;
+                d = Math.floor(h / 24);
+                h = h % 24;
+                h += d * 24;
+
+                h = h < 10 ? '0' + h : h;
+                m = m < 10 ? '0' + m : m;
+                s = s < 10 ? '0' + s : s;
+                return  h + ':' + m + ':' + s;
+}
+        
 
 }
 
-let div = document.createElement('div');
 
-function getStartTime(){
-    let div = document.createElement('div');
-   
+/*******************************************************/
+//UI class
+/*******************************************************/
+class displayUI{    
     
-    var time_of_start = getTime();      
-    var time_of_start = time_of_start;
-    div.innerHTML =`${time_of_start.time}`;
-    
-     valStart.appendChild(div);
-    
-    //getting starttime in milliseconds    
-    var time_of_start_ms = time_of_start.time_in_millisecond;
-    console.log(`${time_of_start.time_in_millisecond}`);  
-    
-    start_time_in_ms += time_of_start_ms;
-    
- 
-   
-    
-       
-}
-  
+        showTimeToDOM(){
 
+               var t =  time.getTime();
+                el.innerHTML = `${t.time}`;
+                timer.appendChild(el);
 
-
-
-function getStopTime(){    
-     
-      let div = document.createElement('div'); 
+         }
     
-     var time_of_stop = getTime();
-     var time_of_stop = time_of_stop;
-     div.innerHTML = `${time_of_stop.time}`;
+        showStartTime(time, n){
+             let div = document.createElement('div');
+             div.innerHTML =`${time.time}`;
+             valStart[n-1].appendChild(div);
+             
+            //only after start clicked stop
+            start[n-1].disabled = true; 
+            stop[n-1].disabled = false;
+            
+            
+        }
     
-    valStop.appendChild(div);
+        showStopTime(time, n){
+              let div = document.createElement('div'); 
+              div.innerHTML = `${time.time}`;             valStop[n-1].appendChild(div);
+            
+            //only after stop clicked start
+                
+               start[n-1].disabled = false;
+               stop[n-1].disabled = true;    
+            
+        }
     
-    let div2 =  document.createElement('div'); 
-    //getting stoptime in milliseconds
-    var time_of_stop_ms = time_of_stop.time_in_millisecond;
-    console.log(`${time_of_stop.time_in_millisecond}`); 
+        showDiffTime(time, n){
+              let div =  document.createElement('div'); 
+              div.innerHTML = time;
+              spent[n-1].appendChild(div);
+        }
     
-    stop_time_in_ms =  time_of_stop_ms;
-         
-    var diff = (stop_time_in_ms - start_time_in_ms);
-    console.log(diff);
-    var diffFormat =  convertMS(diff);
-    div2.innerHTML = diffFormat;
-    console.log(diffFormat);
-
-    spent.appendChild(div2);
-    
-  start_time_in_ms = 0;
-  stop_time_in_ms = 0;
-}
-
-function convertMS(ms) {
-    var d, h, m, s;
-    s = Math.floor(ms / 1000);
-    m = Math.floor(s / 60);
-    s = s % 60;
-    h = Math.floor(m / 60);
-    m = m % 60;
-    d = Math.floor(h / 24);
-    h = h % 24;
-    h += d * 24;
-    
-        h = h < 10 ? '0' + h : h;
-        m = m < 10 ? '0' + m : m;
-        s = s < 10 ? '0' + s : s;
-      return  h + ':' + m + ':' + s;
 }
 
 
 
+/*******************************************************/
+//On ContentLoad
+/*******************************************************/
+
+const time = new Time();
+const ui = new  displayUI();
+setInterval(ui.showTimeToDOM,1000);
+
+
+/*******************************************************/
+//On ContentLoad (watch ui class to see how it does)
+/*******************************************************/
+
+valStart = [...valStart];
+valStop = [...valStop];
+spent = [...spent];
+
+
+/*******************************************************/
 //Event Listeners
+/*******************************************************/
 
 
-start.addEventListener('click',getStartTime);
-
-
-   
-   
-      stop.addEventListener('click', getStopTime,true);
+start.forEach((btn) =>{
+    btn.addEventListener('click',(btn)=>{
+       if(btn.target.dataset.id === '1'){
+           time.getStartTime(1);
+           
+       }
+        else if(btn.target.dataset.id === '2'){
+           time.getStartTime(2);
+       }
+        else{
+           time.getStartTime(3);
+       }
+    });
+    
     
 
+});
 
-//Task manager
-//to find each and every start and stop values
 
-//to fing difference between times and output results
+    
+stop.forEach((btn) =>{
+    btn.addEventListener('click',(btn)=>{
+       if(btn.target.dataset.id === '1'){
+           time.getStopTime(1);
+           
+       }
+        else if(btn.target.dataset.id === '2'){
+           time.getStopTime(2);
+       }
+        else{
+           time.getStopTime(3);
+       }
+    });
+});
+
+
+
+    
+
 

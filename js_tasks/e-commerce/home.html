@@ -26,7 +26,7 @@
                 
                 <div id="cart-icon">
                     <a ><i class="fa fa-cart-plus fa-2x" id="cart-btn"></i></a>
-                    <div class="cart-items">0</div>
+                    <div class="cart-items" id="cart-item-count">0</div>
                 </div>
             </div>
         
@@ -86,8 +86,8 @@
         <section class="section_4">
             <div class="product-section">
             
-                <div class="product-gallery">
-                        <div class="products">
+                <div class="product-gallery" id="product-gallery">
+                    <!--    <div class="products">
                             <div class="product-img">
                                 <img src ="product-1.jpeg">
                              
@@ -271,7 +271,7 @@
                             </div>
                         </div>
                     
-                
+                -->
                 </div>
             
             </div>
@@ -292,43 +292,26 @@
             </div>
             
             <!--cart items -->
+            <div id="cart-item-container">
             
-            <div class="cart-item">
-                <div class="cart-item-img">
-                    <img src="product-1.jpeg">
-                </div>
-                <div class="cart-item-detail">
-                    <h6>Black Couch</h6>
-                    <span>$ 10.99</span>
-                    <a href='#'>remove</a>
-                </div>
-                
-                <div class="cart-item-count">
-                    <i class="fa fa-chevron-up" id="item-count-up"></i>
-                    <span class="item-count">0</span>
-                    <i class="fa fa-chevron-down" id="item-count-down"></i>
-                </div>
-            </div>
-            
-            <!--cart-item ends -->
-            
-                 <!--cart items -->
-            
-            <div class="cart-item">
-                <div class="cart-item-img">
-                    <img src="product-1.jpeg">
-                </div>
-                <div class="cart-item-detail">
-                    <h6>Black Couch</h6>
-                    <span>$ 10.99</span>
-                    <a href='#'>remove</a>
-                </div>
-                
-                <div class="cart-item-count">
-                    <i class="fa fa-chevron-up"></i>
-                    <span class="item-count">0</span>
-                    <i class="fa fa-chevron-down"></i>
-                </div>
+<!--                <div class="cart-item" id="cart-item">-->
+    <!--
+                    <div class="cart-item-img">
+                        <img src="product-1.jpeg">
+                    </div>
+                    <div class="cart-item-detail">
+                        <h6>Black Couch</h6>
+                        <span>$ 10.99</span>
+                        <a href='#'>remove</a>
+                    </div>
+
+                    <div class="cart-item-count">
+                        <i class="fa fa-chevron-up" id="item-count-up"></i>
+                        <span class="item-count">0</span>
+                        <i class="fa fa-chevron-down" id="item-count-down"></i>
+                    </div>
+    -->
+<!--                </div>-->
             </div>
             
             <!--cart-item ends -->
@@ -337,7 +320,7 @@
             
             
             <div class="cart-total">
-                <h5>Your Total :$<span class="item-total"> 0</span></h5>
+                <h5>Your Total :$<span class="item-total" id="item-total"> 0</span></h5>
             </div>
             
             <div class="clear-cart-btn">
